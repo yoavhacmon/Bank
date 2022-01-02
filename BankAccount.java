@@ -6,6 +6,7 @@ public class BankAccount {
     protected String owner;
     protected double fee;
 
+    //building new account
     public BankAccount(int id, double lineOfCredit, String owner) {
         this.id = id;
         this.lineOfCredit = lineOfCredit;
@@ -26,18 +27,26 @@ public class BankAccount {
         }
     }
 
+    //first money in the bank
     public void setMoneyInTheBank(double moneyInTheBank) {
-        this.moneyInTheBank = moneyInTheBank;
+        if (this.moneyInTheBank==0) {
+            this.moneyInTheBank = moneyInTheBank;
+        } else {
+            System.out.println("you You can not perform the operation");
+        }
     }
 
+    //change the fee
     public void setFee(double fee) {
         this.fee = fee;
     }
 
+    //Deposit money in the account
     public void Deposit(double money) {
         this.moneyInTheBank += money - (money * this.fee);
     }
 
+    //Withdrawing cash from the account
     public void cashWithrawal(double money) {
         if (this instanceof Business){
             if ((this.moneyInTheBank-(money + money * this.fee))>(-40_000)){
@@ -69,15 +78,18 @@ public class BankAccount {
         }
     }
 
+    //Taking out a loan
     public void takingOutALoan(double loan) {
         if (this instanceof Private || this instanceof Business) {
             moneyInTheBank += loan - (loan * this.fee);
             this.debt += loan;
-        } else {
+        }
+        else {
             System.out.println("only private and business account can take out a loan");
         }
     }
 
+    //Loan repayment
     public void loanRepayment(double repayment) {
         if (this instanceof Business){
             if ((this.moneyInTheBank-(repayment + repayment + this.fee))>(-40_000)){
